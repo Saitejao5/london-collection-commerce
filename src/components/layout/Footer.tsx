@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { MessageCircle } from "lucide-react";
 
-const WHATSAPP_NUMBER = "96599999999";
+const WHATSAPP_NUMBER = "919985542871";
 
 export default function Footer() {
   return (
