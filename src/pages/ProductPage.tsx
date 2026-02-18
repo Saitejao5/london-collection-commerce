@@ -7,7 +7,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 
-const WHATSAPP_NUMBER = "96599999999";
+const WHATSAPP_NUMBER = "919985542871";
 
 export default function ProductPage() {
   const { slug } = useParams<{ slug: string }>();

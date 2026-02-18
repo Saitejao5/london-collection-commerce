@@ -4,7 +4,7 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 import { getFeaturedProducts, categories } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 
-const WHATSAPP_NUMBER = "96599999999";
+const WHATSAPP_NUMBER = "919985542871";
 
 export default function HomePage() {
   const featured = getFeaturedProducts();
