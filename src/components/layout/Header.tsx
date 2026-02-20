@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
-import { ShoppingBag, Heart, Menu, X, Search } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { ShoppingBag, Heart, Menu, X, LogOut } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
+import { useAuth } from "@/contexts/AuthContext";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -17,6 +18,13 @@ const navLinks = [
 export default function Header() {
   const itemCount = useCartStore((s) => s.itemCount());
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/auth");
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-secondary text-secondary-foreground">
@@ -42,6 +50,11 @@ export default function Header() {
 
         {/* Icons */}
         <div className="flex items-center gap-4">
+          {user && (
+            <span className="hidden lg:block text-xs text-secondary-foreground/60 max-w-[120px] truncate">
+              {user.email}
+            </span>
+          )}
           <Link to="/wishlist" className="hover:text-gold transition-colors" aria-label="Wishlist">
             <Heart size={20} />
           </Link>
@@ -53,6 +66,14 @@ export default function Header() {
               </span>
             )}
           </Link>
+          <button
+            onClick={handleSignOut}
+            className="hover:text-gold transition-colors"
+            aria-label="Sign out"
+            title="Sign out"
+          >
+            <LogOut size={18} />
+          </button>
         </div>
       </div>
 
@@ -71,6 +92,12 @@ export default function Header() {
                   {l.label}
                 </Link>
               ))}
+              <button
+                onClick={() => { setMobileOpen(false); handleSignOut(); }}
+                className="text-left hover:text-gold transition-colors flex items-center gap-2"
+              >
+                <LogOut size={16} /> Sign Out
+              </button>
             </div>
           </motion.nav>
         )}
