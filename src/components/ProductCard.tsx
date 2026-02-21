@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { Heart } from "lucide-react";
-import { Product } from "@/data/products";
+import { Product } from "@/hooks/useProducts";
 import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
+import { formatPrice } from "@/lib/formatPrice";
 
 export default function ProductCard({ product }: { product: Product }) {
   const addItem = useCartStore((s) => s.addItem);
@@ -58,7 +59,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
         <div className="mt-3 space-y-1">
           <h3 className="font-body text-sm text-foreground group-hover:text-gold transition-colors truncate">{product.title}</h3>
-          <p className="font-display text-base text-gold">{product.price.toFixed(3)} KWD</p>
+          <p className="font-display text-base text-gold">{formatPrice(product.price)}</p>
         </div>
       </Link>
     </motion.div>

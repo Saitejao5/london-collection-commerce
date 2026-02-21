@@ -47,7 +47,7 @@ export const useCartStore = create<CartState>()(
         })),
       clearCart: () => set({ items: [] }),
       subtotal: () => get().items.reduce((sum, i) => sum + i.price * i.quantity, 0),
-      deliveryFee: () => (get().items.length > 0 ? 1.0 : 0),
+      deliveryFee: () => (get().items.length > 0 ? 49 : 0),
       total: () => get().subtotal() + get().deliveryFee(),
       itemCount: () => get().items.reduce((sum, i) => sum + i.quantity, 0),
     }),

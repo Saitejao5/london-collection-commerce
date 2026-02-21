@@ -1,12 +1,17 @@
-import { products } from "@/data/products";
+import { useProducts } from "@/hooks/useProducts";
 import { useWishlistStore } from "@/store/wishlistStore";
 import ProductCard from "@/components/ProductCard";
-import { Heart } from "lucide-react";
+import { Heart, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function WishlistPage() {
   const { ids } = useWishlistStore();
-  const wishlistProducts = products.filter((p) => ids.includes(p.id));
+  const { data: allProducts = [], isLoading } = useProducts();
+  const wishlistProducts = allProducts.filter((p) => ids.includes(p.id));
+
+  if (isLoading) {
+    return <div className="container py-20 flex justify-center"><Loader2 className="animate-spin text-gold" size={32} /></div>;
+  }
 
   if (wishlistProducts.length === 0) {
     return (
@@ -14,9 +19,7 @@ export default function WishlistPage() {
         <Heart className="mx-auto mb-4 text-muted-foreground" size={48} />
         <h1 className="font-display text-2xl mb-2">Your Wishlist is Empty</h1>
         <p className="text-muted-foreground text-sm font-body mb-6">Save items you love for later.</p>
-        <Link to="/shop" className="gold-gradient text-primary-foreground font-body text-sm uppercase tracking-wider px-8 py-3 rounded inline-block">
-          Explore Shop
-        </Link>
+        <Link to="/shop" className="gold-gradient text-primary-foreground font-body text-sm uppercase tracking-wider px-8 py-3 rounded inline-block">Explore Shop</Link>
       </div>
     );
   }
